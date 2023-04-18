@@ -22,8 +22,7 @@ func AverageLettersPerWord(text string) (float64, error) {
 	//quantidade de letras
 	var letras float64
 	text = strings.ReplaceAll(text, " ", "")
-	letras = float64(len(text)) - 2
-	fmt.Println(text, letras, words)
+	letras = float64(len(text)) - 2 //subtrair acentos
 
 	var media float64
 	media = letras / words
