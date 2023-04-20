@@ -5,27 +5,26 @@ import (
 )
 
 func CalculateDamage(characterLevel, enemyLevel int) (int, error) {
-	if characterLevel <= 0 && enemyLevel <= 0 {
+	if characterLevel == 0 || enemyLevel == 0 {
 		return 0, fmt.Errorf("nível inválido")
 	}
 	var damage int
-	var diferenca int
-	diferenca = characterLevel - enemyLevel
-	if diferenca > 20 {
-		damage = characterLevel * 5
+
+	if characterLevel > 100 {
+		damage = characterLevel * 20
+	} else if enemyLevel > 100 {
+		damage = characterLevel * 2
 	} else if characterLevel > enemyLevel {
 		damage = characterLevel * 10
-	}
-	if diferenca < 20 {
-		damage = characterLevel * 2
 	} else if characterLevel < enemyLevel {
 		damage = characterLevel * 5
-	}
-	if characterLevel == enemyLevel {
+	} else {
 		damage = characterLevel * 7
 	}
-	if characterLevel > 100 {
-		damage = characterLevel * 2
+	if dif := characterLevel - enemyLevel; dif > 20 {
+		damage *= 5
+	} else if dif < -20 {
+		damage *= 2
 	}
 	return damage, nil
 }

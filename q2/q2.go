@@ -9,23 +9,22 @@ func AverageLettersPerWord(text string) (float64, error) {
 	if len(text) == 0 {
 		return 0, fmt.Errorf("texto vazio")
 	}
-	// limpagem
-	slice := []string{""}
-	text = strings.ReplaceAll(text, ",", "")
-	text = strings.ReplaceAll(text, "!", "")
+	caracteresEspeciais := []string{",", "!", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
 
-	// separar as palavras e coloca em uma slice
-	slice = strings.Fields(text)
-	var words float64
-	words = float64(len(slice))
+	for _, caracter := range caracteresEspeciais {
+		text = strings.ReplaceAll(text, caracter, "")
+	}
+	//
+	var words []string
+	words = strings.Fields(text)
+	if len(words) == 0 {
+		return 0, fmt.Errorf("texto vazio")
+	}
+	//
+	var soma int = 0
+	for _, letter := range words {
+		soma += len(letter)
+	}
 
-	//quantidade de letras
-	var letras float64
-	text = strings.ReplaceAll(text, " ", "")
-	letras = float64(len(text)) - 2 //subtrair acentos
-
-	var media float64
-	media = letras / words
-
-	return media, nil
+	return float64(soma) / float64(len(words)), nil
 }

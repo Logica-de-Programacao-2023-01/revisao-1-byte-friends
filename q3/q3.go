@@ -10,18 +10,17 @@ func FindMinMaxAverage(numbers []int) (int, int, float64, error) {
 	max := numbers[0]
 
 	for _, num := range numbers {
-		if num > max {
+		if num < max {
 			max = num
 		}
-		if num < min {
+		if num > min {
 			min = num
 		}
 	}
-	numbers = append(numbers[:0], numbers[1:4]...)
 	var soma float64 = 0
+
 	for _, sum := range numbers {
 		soma += float64(sum)
 	}
-	var media = soma / float64(len(numbers))
-	return min, max, media, nil
+	return min, max, (soma - (float64(min)) - float64(max)) / float64(len(numbers)-2), nil
 }

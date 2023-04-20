@@ -3,8 +3,8 @@ package q4
 import "fmt"
 
 func CalculateFinalPrice(basePrice float64, state string, taxCode int) (float64, error) {
-	if taxCode >= 4 {
-		return 0, fmt.Errorf("imposto náo encontrado")
+	if taxCode >= 4 || taxCode <= 0 {
+		return 0, fmt.Errorf("imposto não encontrado")
 	}
 	if basePrice <= 0 {
 		return 0, fmt.Errorf("preço base inválido")
@@ -26,8 +26,8 @@ func CalculateFinalPrice(basePrice float64, state string, taxCode int) (float64,
 		case "ES":
 			final = basePrice + basePrice*0.05 + basePrice*0.25
 			break
-		case "OUTROS":
-			final = basePrice + basePrice*0.05 + basePrice*0.3
+		case "other":
+			final = (basePrice) + (basePrice * 0.05) + (basePrice * 0.3)
 		}
 
 	case 2:
@@ -44,7 +44,7 @@ func CalculateFinalPrice(basePrice float64, state string, taxCode int) (float64,
 		case "ES":
 			final = basePrice + basePrice*0.1 + basePrice*0.25
 			break
-		case "OUTROS":
+		case "other":
 			final = basePrice + basePrice*0.1 + basePrice*0.3
 		}
 
@@ -62,7 +62,7 @@ func CalculateFinalPrice(basePrice float64, state string, taxCode int) (float64,
 		case "ES":
 			final = basePrice + basePrice*0.15 + basePrice*0.25
 			break
-		case "OUTROS":
+		case "other":
 			final = basePrice + basePrice*0.15 + basePrice*0.3
 		}
 	}
